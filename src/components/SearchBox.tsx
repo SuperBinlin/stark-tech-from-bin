@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useState, useCallback, KeyboardEvent } from 'react'
-import { useSearchStore } from '@/store/searchStore'
+import React, { useState, useCallback, KeyboardEvent, ChangeEvent } from 'react'
+import { useFinmindStore } from '@/store/finmindStore'
 import SearchIcon from '@mui/icons-material/Search'
 import InputAdornment from '@mui/material/InputAdornment'
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
+import dayjs from 'dayjs'
 
 const CenteredContainer = styled(Box)({
   width: '100%',
@@ -27,16 +28,34 @@ const StyledTextField = styled(TextField)({
 })
 
 export default function SearchBox() {
-  const [localQuery, setLocalQuery] = useState('')
+  const [stockId, setStockId] = useState<string>('2330')
 
-  const handleSearch = useCallback(async () => {
-    console.log('handleSearch', localQuery)
-  }, [localQuery])
+  const fetchStockInfo = useFinmindStore(s => s.fetchStockInfo)
+  const fetchStockRevenue = useFinmindStore(s => s.fetchStockRevenue)
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleSearch = useCallback(() => {
+    const id = stockId.trim()
+    if (!id) {
+      console.warn('Input field cannot be empty.')
+      return
+    }
+
+    const now = dayjs()
+    const start_date = now.subtract(4, 'year').format('YYYY-MM-DD')
+    const end_date = now.format('YYYY-MM-DD')
+
+    fetchStockInfo(id)
+    fetchStockRevenue(id, start_date, end_date)
+  }, [stockId, fetchStockInfo, fetchStockRevenue])
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleSearch()
     }
+  }
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setStockId(e.target.value)
   }
 
   return (
@@ -44,14 +63,14 @@ export default function SearchBox() {
       <StyledTextField
         variant="outlined"
         placeholder="輸入台/美股代號，查看公司價值"
-        value={localQuery}
-        onChange={e => setLocalQuery(e.target.value)}
+        value={stockId}
+        onChange={handleChange}
         onKeyDown={handleKeyDown}
         slotProps={{
           input: {
             endAdornment: (
               <InputAdornment position="end">
-                <SearchIcon />
+                <SearchIcon color="primary" />
               </InputAdornment>
             ),
           },
