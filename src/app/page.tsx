@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Button, Typography, Paper } from '@mui/material';
 
 export default function Home() {
   return (
@@ -51,6 +52,23 @@ export default function Home() {
           </a>
         </div>
       </main>
+      <div className="mt-8 space-y-4">
+        <Typography variant="h6" color="primary">
+          MUI 主题效果测试测试
+        </Typography>
+        
+        <Paper className="p-4 space-y-4">
+          <div className="flex gap-4">
+            <Button variant="contained" color="primary">
+              主色按钮
+            </Button>
+            <Button variant="outlined" color="secondary">
+              次色按钮
+            </Button>
+          </div>
+        </Paper>
+      </div>
+
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
