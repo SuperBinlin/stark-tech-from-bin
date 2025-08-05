@@ -1,45 +1,79 @@
 'use client'
 
 import { useState } from 'react'
+import { Box } from '@mui/material'
 import SearchBox from '@/components/SearchBox'
 import StockTitle from '@/components/StockTitle'
 import StockChart from '@/components/StockChart'
 import Title from '@/components/Title'
+import YearSelect from '@/components/YearSelect'
 import dayjs from 'dayjs'
 
 export default function Home() {
   const [stockId, setStockId] = useState<string>('2330')
+  const [selectedYear, setSelectedYear] = useState<number>(5)
   
   const handleSearch = (newStockId: string) => {
     setStockId(newStockId)
   }
 
   const now = dayjs()
-  const startDate = now.subtract(5, 'year').format('YYYY-MM-DD')
+  const startDate = now.subtract(selectedYear + 1, 'year').format('YYYY-MM-DD')
   const endDate = now.format('YYYY-MM-DD')
 
   return (
     <>
-      <div className="h-20 w-full bg-[var(--color-surface)]">
+      <Box 
+        sx={{ 
+          height: 80, 
+          width: '100%', 
+          bgcolor: 'background.paper' 
+        }}
+      >
         <SearchBox 
           onSearch={handleSearch} 
           initialStockId={stockId}
         />
-      </div>
-      <div className="flex flex-col items-center justify-center pt-3">
+      </Box>
+      <Box 
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pt: 3
+        }}
+      >
         <StockTitle />
-        <div className='pt-3 bg-[var(--color-surface)] border border-[var(--color-border)] mt-2'>
-          <div className='flex justify-between px-4'>
+        <Box 
+          sx={{ 
+            pt: 3,
+            bgcolor: 'background.paper',
+            border: 1,
+            borderColor: 'divider',
+            mt: 2
+          }}
+        >
+          <Box 
+            sx={{ 
+              display: 'flex',
+              justifyContent: 'space-between',
+              px: 4
+            }}
+          >
             <Title text='每月营收' />
-            <Title text='近 5 年' />
-          </div>
+            <YearSelect 
+              initialYear={selectedYear}
+              onYearChange={(year) => setSelectedYear(year)}
+            />
+          </Box>
           <StockChart 
             stockId={stockId}
             startDate={startDate}
             endDate={endDate}
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
     </>
   )
 }
