@@ -1,13 +1,11 @@
 'use client'
 
-import React, { useState, useCallback, KeyboardEvent, ChangeEvent } from 'react'
-import { useFinmindStore } from '@/store/finmindStore'
+import React, { useState, KeyboardEvent, ChangeEvent } from 'react'
 import SearchIcon from '@mui/icons-material/Search'
 import InputAdornment from '@mui/material/InputAdornment'
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
-import dayjs from 'dayjs'
 
 const CenteredContainer = styled(Box)({
   width: '100%',
@@ -28,34 +26,24 @@ const StyledTextField = styled(TextField)({
   },
 })
 
-export default function SearchBox() {
-  const [stockId, setStockId] = useState<string>('2330')
+interface SearchBoxProps {
+  onSearch: (stockId: string) => void
+  initialStockId?: string
+}
 
-  const fetchStockInfo = useFinmindStore(s => s.fetchStockInfo)
-  const fetchStockRevenue = useFinmindStore(s => s.fetchStockRevenue)
+export default function SearchBox({ 
+  onSearch, 
+  initialStockId = '2330' 
+}: SearchBoxProps) {
+  const [stockId, setStockId] = useState<string>(initialStockId)
 
-  const handleSearch = useCallback(() => {
-    const id = stockId.trim()
-    if (!id) {
-      console.warn('Input field cannot be empty.')
-      return
-    }
-
-    const now = dayjs()
-    const start_date = now.subtract(4, 'year').format('YYYY-MM-DD')
-    const end_date = now.format('YYYY-MM-DD')
-
-    fetchStockInfo(id)
-    fetchStockRevenue(id, start_date, end_date)
-  }, [stockId, fetchStockInfo, fetchStockRevenue])
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
-      handleSearch()
+      onSearch(stockId.trim())
     }
   }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setStockId(e.target.value)
   }
 
