@@ -84,7 +84,7 @@ export default function StockChart({
     const option = {
       tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
       legend: {
-        data: ['每月營收', '營收增長率'],
+        data: ['每月营收', '单月营收年增长率'],
         top: 10,
         left: 'center',
       },
@@ -128,7 +128,7 @@ export default function StockChart({
       ],
       series: [
         {
-          name: '每月營收',
+          name: '每月营收',
           type: 'bar',
           data: revenues,
           itemStyle: {
@@ -138,7 +138,7 @@ export default function StockChart({
           },
         },
         {
-          name: '營收增長率',
+          name: '单月营收年增长率',
           type: 'line',
           yAxisIndex: 1,
           data: growths,

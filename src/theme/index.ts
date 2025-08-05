@@ -28,6 +28,11 @@ export const lightTheme = createTheme({
       default: '#ededed',
       paper: '#ffffff'
     },
+    divider: '#DCDFE2',
+    grey: {
+      50: '#F6F8FA',
+      100: '#EEEEEE',
+    },
     custom: {
       borderColor: '#dfdfdf',
       titleBg: '#fafafa',
@@ -54,6 +59,11 @@ export const darkTheme = createTheme({
     custom: {
       borderColor: '#ff0000',
       titleBg: '#fafafa',
+    },
+    divider: '#DCDFE2',
+    grey: {
+      50: '#F6F8FA',
+      100: '#EEEEEE',
     },
     text: {
       primary: 'rgba(255, 255, 255, 0.87)',

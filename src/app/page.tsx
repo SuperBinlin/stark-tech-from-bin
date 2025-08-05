@@ -7,6 +7,7 @@ import StockTitle from '@/components/StockTitle'
 import StockChart from '@/components/StockChart'
 import Title from '@/components/Title'
 import YearSelect from '@/components/YearSelect'
+import RevenueTable from '@/components/RevenueTable'
 import dayjs from 'dayjs'
 
 export default function Home() {
@@ -72,6 +73,27 @@ export default function Home() {
             startDate={startDate}
             endDate={endDate}
           />
+        </Box>
+
+        <Box 
+          sx={{ 
+            pt: 3,
+            bgcolor: 'background.paper',
+            border: 1,
+            borderColor: 'divider',
+            mt: 2
+          }}
+        >
+          <Box 
+            sx={{ 
+              display: 'flex',
+              justifyContent: 'space-between',
+              px: 4
+            }}
+          >
+            <Title text='详细数据' />
+          </Box>
+          <RevenueTable />
         </Box>
       </Box>
     </>
