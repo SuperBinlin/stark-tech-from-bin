@@ -1,3 +1,5 @@
+You can directly access the live demo at [https://stark-tech-from-bin.vercel.app/](https://stark-tech-from-bin.vercel.app/)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
