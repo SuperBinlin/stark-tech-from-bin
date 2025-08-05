@@ -24,6 +24,7 @@ const StyledTextField = styled(TextField)({
     paddingLeft: 12,
     paddingRight: 16,
     borderRadius: 8,
+    height: 40,
   },
 })
 
@@ -70,7 +71,7 @@ export default function SearchBox() {
           input: {
             endAdornment: (
               <InputAdornment position="end">
-                <SearchIcon color="primary" />
+                <SearchIcon />
               </InputAdornment>
             ),
           },

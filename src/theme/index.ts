@@ -27,6 +27,10 @@ export const lightTheme = createTheme({
     background: { 
       default: '#ededed',
       paper: '#ffffff'
+    },
+    custom: {
+      borderColor: '#dfdfdf',
+      titleBg: '#fafafa',
     }
   }
 });
@@ -46,6 +50,10 @@ export const darkTheme = createTheme({
     background: { 
       default: '#121212',
       paper: '#1e1e1e'
+    },
+    custom: {
+      borderColor: '#ff0000',
+      titleBg: '#fafafa',
     },
     text: {
       primary: 'rgba(255, 255, 255, 0.87)',

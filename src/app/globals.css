@@ -3,6 +3,7 @@
 :root {
   --background: #ededed;
   --foreground: #171717;
+  --color-surface: #ffffff;
 }
 
 @theme inline {
@@ -16,6 +17,7 @@
   :root {
     --background: #ededed;
     --foreground: #171717;
+    --color-surface: #1e1e1e;
   }
 }
 
